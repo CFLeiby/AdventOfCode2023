@@ -12,19 +12,34 @@ public class Day01 : IDayChallenge
     {
         using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("AdventOfCode.DayOne.Input.txt"))
         {
+            if (stream == null)
+            {
+                Console.Write("Input file not found");
+                return Task.CompletedTask;
+            }
+            
             using (var reader = new StreamReader(stream))
             {
                 var backwardNames = NumberNames.Select(n => new string(n.Reverse().ToArray())).ToArray();
-                var total = 0;
-                var input = reader.ReadToEnd().Split(Environment.NewLine);
-                foreach (var line in input)
+                var totalNumbersOnly = 0;
+                var totalNames = 0;
+                var line = reader.ReadLine();
+                while (line != null)
                 {
-                    var firstDigit = GetFirstNumber(line, NumberNames);
-                    var secondDigit = GetFirstNumber(new string(line.Reverse().ToArray()), backwardNames);
-                    total += int.Parse(new[] { firstDigit, secondDigit });
+                    var reverseLine = line.Reverse().ToArray();
+                    var firstDigit = GetFirstNumber(line, null);
+                    var secondDigit = GetFirstNumber(new string(reverseLine), null);
+                    totalNumbersOnly += int.Parse(new[] { firstDigit, secondDigit }); 
+                    
+                    firstDigit = GetFirstNumber(line, NumberNames);
+                    secondDigit = GetFirstNumber(new string(reverseLine), backwardNames);
+                    totalNames += int.Parse(new[] { firstDigit, secondDigit });
+                    
+                    line = reader.ReadLine();
                 }
                 
-                Console.WriteLine(total);
+                Console.WriteLine("Total with numbers only: " + totalNumbersOnly);
+                Console.WriteLine("Total with number names: " + totalNames);
             }
         }
         return Task.CompletedTask;
@@ -32,6 +47,11 @@ public class Day01 : IDayChallenge
 
     private static char GetFirstNumber(string line, IReadOnlyList<string> numberNames)
     {
+        if (numberNames == null)
+        {
+            return line.First(char.IsNumber);
+        }
+        
         var firstDigitPos = line.TakeWhile(c => !char.IsDigit(c)).Count();
         if (firstDigitPos == line.Length)
         {
@@ -53,7 +73,5 @@ public class Day01 : IDayChallenge
 
         }
         return firstWordPos < firstDigitPos ? firstWordValue.ToString()[0] : line[firstDigitPos];
-
-        return '0';
     }
 }

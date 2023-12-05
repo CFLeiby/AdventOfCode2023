@@ -17,7 +17,11 @@ internal static class Program
         {
             case 1:
                 challenge = new Day01();
-                break;  
+                break;
+            case 2:
+                challenge = new Day02();
+                break;
+            
             default: 
                 return;
         }

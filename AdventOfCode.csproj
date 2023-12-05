@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="DayTwo\Input.txt" />
       <None Remove="DayOne\Input.txt" />
       <EmbeddedResource Include="DayOne\Input.txt" />
     </ItemGroup>
