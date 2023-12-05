@@ -10,7 +10,7 @@ public class Day01 : IDayChallenge
     
     public Task Execute()
     {
-        using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("AdventOfCode.DayOne.Input.txt"))
+        using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("AdventOfCode.Inputs.Day01.txt"))
         {
             if (stream == null)
             {

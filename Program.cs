@@ -23,6 +23,7 @@ internal static class Program
                 break;
             
             default: 
+                Console.WriteLine($"Day {day} does not exist yet!");
                 return;
         }
         
