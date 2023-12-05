@@ -2,49 +2,19 @@ namespace AdventOfCode;
 
 using System.Reflection;
 
-public class Day02 : IDayChallenge
+public class Day02 : DayChallengeBase
 {
     private static readonly Dictionary<string,int> ColorMaxes = new() 
         { { "red", 12 }, { "green", 13}, { "blue", 14 } };
     
-    public Task Execute()
+    protected override string InputFile => "Day02.txt";
+    protected override string Part1Prefix => "Sum of possible games: ";
+    protected override string Part2Prefix => "Sum of powers: ";
+
+    protected override int ExecutePart1(string line)
     {
-        using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("AdventOfCode.Inputs.Day02.txt"))
-        {
-            if (stream == null)
-            {
-                Console.Write("Input file not found");
-                return Task.CompletedTask;
-            }
-            
-            using (var reader = new StreamReader(stream))
-            {
-                var possibleTotal = 0;
-                var powerTotal = 0;
-                var line = reader.ReadLine();
-                while (line != null)
-                {
-                    var game = line.Split(':');
-                    if (GameIsPossible(game[1]))
-                    {
-                        possibleTotal += int.Parse(game[0].Split(' ')[1]);
-                    }
-
-                    powerTotal += GetGamePower(game[1]);
-
-                    line = reader.ReadLine();
-                }
-                
-                Console.WriteLine("Sum of possible games: " + possibleTotal);
-                Console.WriteLine("Sum of powers: " + powerTotal);
-            }
-        }
-        return Task.CompletedTask;
-    }
-
-    private static bool GameIsPossible(string game)
-    {
-        var sets = game.Trim().Split(';');
+        var game = line.Split(':');
+        var sets = game[1].Trim().Split(';');
         foreach (var set in sets)
         {
             var colorGroups = set.Trim().Split(",");
@@ -53,20 +23,20 @@ public class Day02 : IDayChallenge
                 var color = colorGroup.Trim().Split(' ');
                 if (int.Parse(color[0]) > ColorMaxes[color[1]])
                 {
-                    return false;
+                    return 0;
                 }
             }
         }
 
-        return true;
+        return int.Parse(game[0].Split(' ')[1]);
     }
 
-    private static int GetGamePower(string game)
+    protected override int ExecutePart2(string line)
     {
         var red = 0;
         var blue = 0;
         var green = 0;
-        var sets = game.Trim().Split(';');
+        var sets = line.Split(':')[1].Trim().Split(';');
         foreach (var set in sets)
         {
             var colorGroups = set.Trim().Split(",");

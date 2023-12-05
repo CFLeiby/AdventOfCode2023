@@ -1,48 +1,32 @@
 namespace AdventOfCode;
 
-using System.Reflection;
-using System.Xml;
-
-public class Day01 : IDayChallenge
+public class Day01 : DayChallengeBase
 {
     private static readonly string[] NumberNames = 
         { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+    private static readonly string[] BackwardsNames = 
+        NumberNames.Select(n => new string(n.Reverse().ToArray())).ToArray();
     
-    public Task Execute()
+    protected override string InputFile => "Day01.txt";
+    
+    protected override string Part1Prefix => "Total with numbers only: ";
+
+    protected override string Part2Prefix => "Total with number names: ";
+
+    protected override int ExecutePart1(string line)
     {
-        using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("AdventOfCode.Inputs.Day01.txt"))
-        {
-            if (stream == null)
-            {
-                Console.Write("Input file not found");
-                return Task.CompletedTask;
-            }
-            
-            using (var reader = new StreamReader(stream))
-            {
-                var backwardNames = NumberNames.Select(n => new string(n.Reverse().ToArray())).ToArray();
-                var totalNumbersOnly = 0;
-                var totalNames = 0;
-                var line = reader.ReadLine();
-                while (line != null)
-                {
-                    var reverseLine = line.Reverse().ToArray();
-                    var firstDigit = GetFirstNumber(line, null);
-                    var secondDigit = GetFirstNumber(new string(reverseLine), null);
-                    totalNumbersOnly += int.Parse(new[] { firstDigit, secondDigit }); 
-                    
-                    firstDigit = GetFirstNumber(line, NumberNames);
-                    secondDigit = GetFirstNumber(new string(reverseLine), backwardNames);
-                    totalNames += int.Parse(new[] { firstDigit, secondDigit });
-                    
-                    line = reader.ReadLine();
-                }
-                
-                Console.WriteLine("Total with numbers only: " + totalNumbersOnly);
-                Console.WriteLine("Total with number names: " + totalNames);
-            }
-        }
-        return Task.CompletedTask;
+        var reverseLine = line.Reverse().ToArray();
+        var firstDigit = GetFirstNumber(line, null);
+        var secondDigit = GetFirstNumber(new string(reverseLine), null);
+        return int.Parse(new[] { firstDigit, secondDigit }); 
+    }
+
+    protected override int ExecutePart2(string line)
+    {
+        var reverseLine = line.Reverse().ToArray();
+        var firstDigit = GetFirstNumber(line, NumberNames);
+        var secondDigit = GetFirstNumber(new string(reverseLine), BackwardsNames);
+        return int.Parse(new[] { firstDigit, secondDigit });
     }
 
     private static char GetFirstNumber(string line, IReadOnlyList<string> numberNames)

@@ -12,14 +12,14 @@ internal static class Program
             return;
         }
         
-        IDayChallenge challenge;
+        DayChallengeBase challengeBase;
         switch(day)
         {
             case 1:
-                challenge = new Day01();
+                challengeBase = new Day01();
                 break;
             case 2:
-                challenge = new Day02();
+                challengeBase = new Day02();
                 break;
             
             default: 
@@ -27,6 +27,6 @@ internal static class Program
                 return;
         }
         
-        challenge.Execute().Wait();
+        challengeBase.Execute().Wait();
     }
 }
