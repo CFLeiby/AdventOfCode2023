@@ -12,7 +12,7 @@ internal static class Program
             return;
         }
         
-        DayChallengeBase challengeBase;
+        IDayChallenge challengeBase;
         switch(day)
         {
             case 1:
@@ -21,7 +21,9 @@ internal static class Program
             case 2:
                 challengeBase = new Day02();
                 break;
-            
+            case 3:
+                challengeBase = new Day03();
+                break;
             default: 
                 Console.WriteLine($"Day {day} does not exist yet!");
                 return;

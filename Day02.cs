@@ -1,7 +1,5 @@
 namespace AdventOfCode;
 
-using System.Reflection;
-
 public class Day02 : DayChallengeBase
 {
     private static readonly Dictionary<string,int> ColorMaxes = new() 

@@ -2,7 +2,7 @@ namespace AdventOfCode;
 
 using System.Reflection;
 
-public abstract class DayChallengeBase
+public abstract class DayChallengeBase : IDayChallenge
 {
     public Task Execute()
     {
