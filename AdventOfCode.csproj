@@ -33,5 +33,7 @@
       <EmbeddedResource Include="Inputs\Day05\TempToHumidity.txt" />
       <None Remove="Inputs\Day05\WaterToLight.txt" />
       <EmbeddedResource Include="Inputs\Day05\WaterToLight.txt" />
+      <None Remove="Inputs\Day06.txt" />
+      <EmbeddedResource Include="Inputs\Day06.txt" />
     </ItemGroup>
 </Project>
