@@ -4,7 +4,6 @@ using System.Reflection;
 
 public class Day06 : IDayChallenge
 {
-   
     public Task Execute()
     {
         using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"AdventOfCode.Inputs.Day06.txt"))
