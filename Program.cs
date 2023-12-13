@@ -39,6 +39,9 @@ internal static class Program
             case 8:
                 challengeBase = new Day08();
                 break;
+            case 9:
+                challengeBase = new Day09();
+                break;
             default: 
                 Console.WriteLine($"Day {day} does not exist yet!");
                 return;
