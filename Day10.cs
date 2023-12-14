@@ -28,7 +28,9 @@ public class Day10 : IDayChallenge
                 
                 var maxDistance = ExecutePart1();
                  Console.WriteLine($"Max distance: {maxDistance}");
-                // Console.WriteLine($"Sum of all gear ratios: {gearRatioTotal}");
+
+                 var tilesInLoop = ExecutePart2();
+                 Console.WriteLine($"Total tiles: {tilesInLoop}");
             }
         }
 
@@ -68,6 +70,12 @@ public class Day10 : IDayChallenge
         return (int)Math.Ceiling(loop.Count/2m);
     }
 
+    private int ExecutePart2()
+    {
+        //TODO
+        return 0;
+    }
+    
     private List<char> GoNorth(int row, int column)
     {
         if (row < 0)
